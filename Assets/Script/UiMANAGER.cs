@@ -8,11 +8,11 @@ public class UIMANAGER : MonoBehaviour
     // Start is called before the first frame update
    public void LoadLevle()
     {
-      // SceneManager.LoadLevel("");
+    //   SceneManager.LoadLevel("");
     }
     public void Quit()
     {
       
-        Application.Quit();
+        //Application.Quit();
     }
 }
