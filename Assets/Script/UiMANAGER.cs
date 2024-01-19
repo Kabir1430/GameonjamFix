@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class UIMANAGER : MonoBehaviour
 {
+    // Start is called before the first frame update
    public void LoadLevle()
     {
-     //SceneManager.LoadLevel("Ok");
+       SceneManager.LoadLevel("");
     }
     public void Quit()
     {
-      Application.Quit();
+      
+        //Application.Quit();
     }
 }
