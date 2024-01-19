@@ -8,7 +8,7 @@ public class UIMANAGER : MonoBehaviour
 {
    public void LoadLevle()
     {
-     // SceneManager.LoadLevel();
+     //SceneManager.LoadLevel("Ok");
     }
     public void Quit()
     {
