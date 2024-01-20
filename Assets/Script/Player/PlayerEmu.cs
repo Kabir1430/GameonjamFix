@@ -7,7 +7,12 @@ public class PlayerEmu : MonoBehaviour
     {
     // Start is called before the first frame update
     [Header("Movement")]
-    public float movementSpeed ,Run,horizontal,vertical;
+    public float movementSpeed;
+    public float Run;
+    public float horizontal;
+
+    public float vertical;
+
     public CharacterController characterController;
     //public FixedJoystick FixedJoystick;
 
@@ -26,13 +31,14 @@ public LayerMask Glayer;
     public float verticalRotation, minVerticalAngle, maxVerticalAngle;
     public float mouseX, mouseY;
 
+    /*
     public Vector2 touchStartPosition;
     public Vector2 currentTouchPosition;
     public bool isTouching = false;
     public RectTransform joystickPanel;
 
     public GameObject localPlayerPanel;
-        
+      */  
     [Header("Raycast")]
     public float shootCooldown = 0.5f;
 
@@ -92,6 +98,7 @@ public LayerMask Glayer;
     {
         //  if(pv.IsMine)
         //   {
+        HandleMouseLook();
 
         //       OnEnablePlayer(); 
 
@@ -114,7 +121,6 @@ public LayerMask Glayer;
 
         }
 
-        HandleMouseLook();
         Check();
 
    }
@@ -210,9 +216,12 @@ public LayerMask Glayer;
         if(currentState==PlayerState.Running)
         {
           targetSpeed = 6;
+            BlendSpeed = 0.2f;
         }else if(currentState == PlayerState.Walking)
         {
             targetSpeed = 2;
+
+            BlendSpeed = 0.1f;
         }
         else if(currentState == PlayerState.Idle)
         {
@@ -239,43 +248,10 @@ public LayerMask Glayer;
 
     private void HandleMouseLook()  
     {
-          float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
-
-/*
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
-            {
-                touchStartPosition = touch.position;
-                isTouching = RectTransformUtility.RectangleContainsScreenPoint(joystickPanel, touchStartPosition);
-            }
-            else if (touch.phase == TouchPhase.Moved && isTouching)
-            {
-                currentTouchPosition = touch.position;
-                float deltaX = currentTouchPosition.x - touchStartPosition.x;
-                float deltaY = currentTouchPosition.y - touchStartPosition.y;
-
-                mouseX = Mathf.Clamp(deltaX / Screen.width, -1f, 1f) * mouseSensitivity;
-                mouseY = Mathf.Clamp(deltaY / Screen.height, -1f, 1f) * mouseSensitivity;
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                isTouching = false;
-                mouseX = 0;
-                mouseY = 0;
-            }
-        }
-        else
-        {
-            mouseX = 0;
-            mouseY = 0;
-        }
-
-        */
-        // Rotate the player horizontally
+         mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+         mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+     
+        // Rotate the player around the Y-axis based on mouse input
         transform.Rotate(Vector3.up * mouseX);
 
         // Rotate the camera vertically with limits
@@ -285,14 +261,12 @@ public LayerMask Glayer;
         // Apply the new rotation to the camera
         playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
-
-       
     }
 
     private void HandleIdleState()
     {
        
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))  
         {
         
         }
@@ -300,22 +274,19 @@ public LayerMask Glayer;
         {
             currentState = PlayerState.Shooting;
         }
-        else if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.12f || Mathf.Abs(  Input.GetAxis("Vertical")) > 0.12f)
-        {
-            currentState = PlayerState.Running;
-        }
+     
 
         else if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f || Mathf.Abs(   Input.GetAxis("Vertical"))> 0.1f)
         {
             currentState = PlayerState.Walking;
         }
        
-        if (Input.GetKey(KeyCode.LeftShift))
+
+        else if (Input.GetKey(KeyCode.LeftShift))
         {
-             if (horizontal != 0 || vertical != 0)
-            {
+            
                 currentState = PlayerState.Running;
-              }
+              
         }
         Debug.Log("idle");
 
@@ -332,7 +303,8 @@ public LayerMask Glayer;
         horizontal = Input.GetAxis("Horizontal");
         vertical= Input.GetAxis("Vertical");
 
-        Vector3 movement = transform.TransformDirection(new Vector3(horizontal, 0, vertical)) * movementSpeed;
+
+       Vector3 movement = transform.TransformDirection(new Vector3(horizontal, 0, vertical)) * movementSpeed;
         characterController.Move(movement * Time.deltaTime);
 
         // Handle transitioning to other states
@@ -372,16 +344,22 @@ public LayerMask Glayer;
 
         UpdateAnimatorParameters(horizontal, vertical);
 
-       
-       
 
-          /*  if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                currentState = PlayerState.Walking;
-            }
+
+
+         if (Input.GetKeyUp(KeyCode.LeftShift))
+          {
+              currentState = PlayerState.Walking;
+          }
+
+        else if (Mathf.Abs(horizontal) < 0.1f && Mathf.Abs(vertical) < 0.1f)
+        {
+            currentState = PlayerState.Idle;
+        }
         Debug.Log("Running");
-        */
-        
+     
+
+     //   Debug.Log("Run");
     }
 
    
