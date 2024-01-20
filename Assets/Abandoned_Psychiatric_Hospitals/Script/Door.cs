@@ -32,7 +32,7 @@ public class Door : MonoBehaviour
         {
             open = !open;
         }
-        if (trig)
+        if (trig) 
         {
             if (open)
             {
