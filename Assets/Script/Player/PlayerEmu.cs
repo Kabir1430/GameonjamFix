@@ -405,7 +405,7 @@ public LayerMask Glayer;
         }
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+  /*  public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
@@ -416,7 +416,7 @@ public LayerMask Glayer;
         {
             smoothMove = (Vector3)stream.ReceiveNext();
         }
-    }
+    */
 
     
 
