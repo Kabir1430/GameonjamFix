@@ -31,7 +31,7 @@ public class EnemyAi : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (playerInSightRange, && !playerInAttackRange) ChasePlayer();
+        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
     }
 
@@ -42,7 +42,7 @@ public class EnemyAi : MonoBehaviour
 
     private void AttackPlayer()
     {
-       agent.SetDestiation(transform.position);
+       agent.SetDestination(transform.position);
 
         transform.LookAt(player);
 
