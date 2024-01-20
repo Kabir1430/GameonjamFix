@@ -25,7 +25,7 @@ public class Gun : MonoBehaviour
         // Update the cooldown timer
         currentCooldown -= Time.deltaTime;
 
-        if (Input.GetButtonDown("Fire1") && currentCooldown <= 0f && currentAmmo > 0)
+        if (Input.GetKey(KeyCode.Mouse0) && currentCooldown <= 0f && currentAmmo > 0)
         {
             Shoot();
             // Reset the cooldown timer
@@ -33,7 +33,7 @@ public class Gun : MonoBehaviour
             currentAmmo--;
         }
 
-        if (Input.GetButtonDown("Reload") && currentAmmo < magazineSize)
+        if (Input.GetKey(KeyCode.R) && currentAmmo < magazineSize)
         {
             Reload();
         }
@@ -43,6 +43,7 @@ public class Gun : MonoBehaviour
     {
         Ray ray = new Ray(gunTip.position, gunTip.forward);
         RaycastHit hitInfo;
+
 
         if (Physics.Raycast(ray, out hitInfo, range, targetLayer))
         {
