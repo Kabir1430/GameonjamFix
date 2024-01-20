@@ -11,14 +11,18 @@ public class EnemyAi : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
+    public float health;
+
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    public GameObject projectile;
 
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    public GameObject EnemyAI;
 
     private void Awake()
     {
@@ -46,5 +50,40 @@ public class EnemyAi : MonoBehaviour
 
         transform.LookAt(player);
 
+        if (!alreadyAttacked)
+        {
+            //Attack code
+            //Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<RigidBody>();
+            rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+
+
+            alreadyAttacked = true;
+            Invoke(nameOf(ResetAttack), timeBetweenAttacks);
+        }
+
+    }
+
+    private void ResetAttack()
+    {
+        alreadyAttacked= false;
+    }
+
+    private void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0) invoke(nameof(DestroyEnemy), 0.5f);
+    }
+
+    private void DestroyEnemy()
+    {
+        EnemyAI.Destroy();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 }
