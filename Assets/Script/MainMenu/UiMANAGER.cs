@@ -9,11 +9,10 @@ public class UIMANAGER : MonoBehaviour
     // ore the first frame update
    public void LoadLevel(string Level)
     {
-        SceneManager.LoadScene(1    );
+        SceneManager.LoadScene(1);
     }
     public void Quit()
     {
-      
-        //Application.Quit();
+      Application.Quit();
     }
 }
