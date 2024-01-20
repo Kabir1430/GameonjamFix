@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PlayerEmu : MonoBehaviour
     {
-    // Start is called before the first frame update
-    [Header("Movement")]
+  
     public float movementSpeed;
     public float Run;
     public float horizontal;
@@ -14,16 +13,8 @@ public class PlayerEmu : MonoBehaviour
     public float vertical;
 
     public CharacterController characterController;
-    //public FixedJoystick FixedJoystick;
+  
 
-   /* [Header("Jump")]
-    public float jumpForce = 5.0f; 
-
-    public float GroundDistance;
-    public float gravity = 9.8f;
-    public Vector3 verticalVelocity;
-public LayerMask Glayer;
-    */
     
 
        [Header("Mouse")]
@@ -32,30 +23,10 @@ public LayerMask Glayer;
     public float verticalRotation, minVerticalAngle, maxVerticalAngle;
     public float mouseX, mouseY;
 
-    /*
-    public Vector2 touchStartPosition;
-    public Vector2 currentTouchPosition;
-    public bool isTouching = false;
-    public RectTransform joystickPanel;
-
-    public GameObject localPlayerPanel;
-      */  
     [Header("Raycast")]
     public float shootCooldown = 0.5f;
 
-
-
-[Header("Animation")]
-
-    public Animator Animator;
-      
-    public float targetSpeed,BlendSpeed;
-
-    //public float VH;
-    
-    //public float VV;
-
-
+                    
 
 
     [Header("Gravity")]
@@ -64,7 +35,7 @@ public LayerMask Glayer;
     public float Gravity = 9.8f;
     public float sphereRadius = 0.3f;
     public float sphereCastDistance = 0.2f;
-    //  public GameObject  playercam;   
+  
 
 
 
@@ -84,31 +55,28 @@ public LayerMask Glayer;
 
     private void Start()
     {
-        //characterController = GetComponent<CharacterController>();
-        //playerCamera = GetComponentInChildren<Camera>();
-   //     playercam.SetActive(true);
-       // cam = GameObject.FindWithTag("MainCamera");
+     
 
       Cursor.lockState = CursorLockMode.Locked;
        
       Cursor.visible = false; 
 
-     //   cam.SetActive(false);
+  
 
      
     }
 
     private void Update()
     {
-        //  if(pv.IsMine)
-        //   {
+      
+    
 
         ApplyGravity();
        
-        //DrawGizmos();
+       
         HandleMouseLook();
 
-        //       OnEnablePlayer(); 
+   
 
         switch (currentState)
         {
@@ -128,8 +96,7 @@ public LayerMask Glayer;
                 break;
 
         }
-                Check();
-    /// 
+           
    }
 
 
@@ -166,44 +133,6 @@ public LayerMask Glayer;
    
    
         
-
-    
-    void Check()
-
-    {
-
-        if(currentState==PlayerState.Running)
-        {
-          targetSpeed = 6;
-            BlendSpeed = 0.2f;
-        }else if(currentState == PlayerState.Walking)
-        {
-            targetSpeed = 2;
-
-            BlendSpeed = 0.1f;
-        }
-        else if(currentState == PlayerState.Idle)
-        {
-            targetSpeed = 0;
-        }
-
-      
-
-    }
-
-    private void UpdateAnimatorParameters(float VH, float VV)
-    {
-        VH *= targetSpeed;
-        VV *= targetSpeed;
-
-        Animator.SetFloat("H", VH, BlendSpeed, Time.deltaTime);
-        Animator.SetFloat("V", VV, BlendSpeed, Time.deltaTime);
-
-        // Synchronize animation parameters over the network
-      
-    }
-
-   
 
     private void HandleMouseLook()  
     {
@@ -249,7 +178,7 @@ public LayerMask Glayer;
         }
         Debug.Log("idle");
 
-     UpdateAnimatorParameters(0,0);
+    
     }
 
     private void HandleWalkingState()
@@ -267,11 +196,8 @@ public LayerMask Glayer;
         characterController.Move(movement * Time.deltaTime);
 
         // Handle transitioning to other states
-        if (Input.GetButtonDown("Jump"))
-        {
-            //     currentState = PlayerState.Jumping;
-        }
-        else if (Input.GetButtonDown("Fire1"))
+       
+        if (Input.GetButtonDown("Fire1"))
         {
             currentState = PlayerState.Shooting;
         }
@@ -284,8 +210,6 @@ public LayerMask Glayer;
             currentState = PlayerState.Running;
         }
        
-        UpdateAnimatorParameters(horizontal,vertical);
-
 
          
         Debug.Log("Moving");
@@ -301,8 +225,7 @@ public LayerMask Glayer;
         Vector3 movement = transform.TransformDirection(new Vector3(horizontal, 0, vertical)) * Run;
         characterController.Move(movement * Time.deltaTime);
 
-        UpdateAnimatorParameters(horizontal, vertical);
-
+    
 
 
 

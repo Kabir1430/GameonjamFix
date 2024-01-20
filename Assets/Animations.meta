@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animations.meta
 guid: 39e73b7c2899309478b340913f15738d
 folderAsset: yes
+========
+guid: 4d2a89de7ac800e4ca0784c318c7d941
+>>>>>>>> upstream/main:Assets/Scenes/Enemy.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
