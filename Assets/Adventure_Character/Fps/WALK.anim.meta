@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Adventure_Character/Fps/WALK.anim.meta
+guid: 1c2439c200fa7f945a73a1b9e165092d
+NativeFormatImporter:
+========
+guid: aecbafcddb6e6b246808afb05d018207
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> upstream/main:Assets/Script/Enemy.meta
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
