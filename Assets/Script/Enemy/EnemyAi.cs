@@ -76,7 +76,7 @@ public class EnemyAi : MonoBehaviour
 
     private void DestroyEnemy()
     {
-        EnemyAI.Destroy();
+        Destroy(EnemyAI);
     }
 
     private void OnDrawGizmosSelected()
