@@ -53,7 +53,7 @@ public class EnemyAi : MonoBehaviour
         if (!alreadyAttacked)
         {
             //Attack code
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<RigidBody>();
+            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward *32f, ForceMode.Impulse);
 
 
@@ -71,12 +71,12 @@ public class EnemyAi : MonoBehaviour
     private void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0) invoke(nameof(DestroyEnemy), 0.5f);
+        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
 
     private void DestroyEnemy()
     {
-        EnemyAI.Destroy();
+        EnemyAI.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()
