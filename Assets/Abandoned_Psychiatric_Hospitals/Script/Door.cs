@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
-//using UnityEngine.UI;
+using UnityEngine.UI;
 
-
-
-//using TMPro;
 public class Door : MonoBehaviour
 {
 
@@ -12,8 +9,7 @@ public class Door : MonoBehaviour
     public float DoorOpenAngle = 90.0f;//угол вращения 
     private Vector3 defaulRot;
     private Vector3 openRot;
-
-    //public TextMeshProUGUI txt;//text 
+    public Text txt;//text 
     // Start is called before the first frame update
     void Start()
     {
@@ -34,18 +30,17 @@ public class Door : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && trig)
         {
-       
             open = !open;
         }
         if (trig)
         {
             if (open)
             {
-          //      txt.text = "Close E";
+                txt.text = "Close E";
             }
             else
             {
-          //      txt.text = "Open E";
+                txt.text = "Open E";
             }
         }
     }
@@ -55,11 +50,11 @@ public class Door : MonoBehaviour
         {
             if (!open)
             {
-            //    txt.text = "Close E ";
+                txt.text = "Close E ";
             }
             else
             {
-           //     txt.text = "Open E";
+                txt.text = "Open E";
             }
             trig = true;
         }
@@ -68,7 +63,7 @@ public class Door : MonoBehaviour
     {
         if (coll.tag == "Player")
         {
-         //   txt.text = " ";
+            txt.text = " ";
             trig = false;
         }
     }
