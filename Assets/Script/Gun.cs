@@ -14,6 +14,10 @@ public class Gun : MonoBehaviour
     private float currentCooldown = 0f;
     private int currentAmmo;
 
+
+    [Header("Audio")]
+
+    public AudioSource Fire;
     void Start()
     {
         currentAmmo = magazineSize;
@@ -45,7 +49,7 @@ public class Gun : MonoBehaviour
 
         // Visualize the ray in the scene for debugging
         Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
-
+        Fire.Play();
         if (Physics.Raycast(ray, out hitInfo, range, targetLayer))
         {
             // The ray hit a valid target
