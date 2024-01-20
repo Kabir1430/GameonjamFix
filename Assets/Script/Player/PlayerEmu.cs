@@ -16,14 +16,15 @@ public class PlayerEmu : MonoBehaviour
     public CharacterController characterController;
     //public FixedJoystick FixedJoystick;
 
-    [Header("Jump")]
+   /* [Header("Jump")]
     public float jumpForce = 5.0f; 
 
     public float GroundDistance;
     public float gravity = 9.8f;
     public Vector3 verticalVelocity;
 public LayerMask Glayer;
-    public bool isGrounded;
+    */
+    
 
        [Header("Mouse")]
     public Camera playerCamera;
@@ -54,16 +55,19 @@ public LayerMask Glayer;
     
     //public float VV;
 
-    [Header("Network")] 
 
-   // public PhotonView pv;
-      
-    private Vector3 smoothMove;
 
+
+    [Header("Gravity")]
+
+    public bool isGrounded;
+    public float Gravity = 9.8f;
+    public float sphereRadius = 0.3f;
+    public float sphereCastDistance = 0.2f;
     //  public GameObject  playercam;   
 
-    
-     
+
+
 
     private enum PlayerState
     {
@@ -98,6 +102,10 @@ public LayerMask Glayer;
     {
         //  if(pv.IsMine)
         //   {
+
+        ApplyGravity();
+       
+        //DrawGizmos();
         HandleMouseLook();
 
         //       OnEnablePlayer(); 
@@ -120,95 +128,46 @@ public LayerMask Glayer;
                 break;
 
         }
-
-        Check();
-
+                Check();
+    /// 
    }
-        //
-    /*
-        else
-        {
-            DisableRemotePlayerComponents();
-            smoothMovement();
-        }
+
+
+
+
+
 
     
-    }
-
-    /// <summary>
-    /// 
-    /// NETWORK
-
-    private void smoothMovement()
-    {
-        characterController.Move(Vector3.Lerp(transform.position, smoothMove, Time.deltaTime * 10));
-    }
-
-    private void OnEnablePlayer()
-    {
-      //  localPlayerPanel.SetActive(true);
-      //  FixedJoystick.enabled = true;
-        characterController.enabled = true;
-        playerCamera.enabled = true;
-    }
-    private void DisableRemotePlayerComponents()
-    {
-       // localPlayerPanel.SetActive(false);
-       // FixedJoystick.enabled = false;
-        characterController.enabled = false;
-        playerCamera.enabled = false;
-    }
-
-    /// ////////////////////////////////////////
-    /// </summary>
-    /// 
-
-
-
-
-
-    */
     void ApplyGravity()
     {
-        bool isGrounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, GroundDistance);
+        // SphereCast to check if the character is grounded
+         isGrounded = Physics.SphereCast(
+            transform.position,
+            sphereRadius,
+            Vector3.down,
+            out RaycastHit hit,
+            sphereCastDistance
+        );
 
-
-        // Visualize the ray in the Scene view
-        Debug.DrawRay(transform.position, Vector3.down * GroundDistance, isGrounded ? Color.green : Color.red);
-
-        // Set the animator parameter based on whether the player is grounded
-       
         if (!isGrounded)
         {
-            verticalVelocity.y -= gravity * Time.deltaTime;
-            characterController.Move(verticalVelocity * Time.deltaTime);
-            Debug.Log("Gravity");
+            // Apply gravity when the character is grounded
+
+            Vector3 gravityVector = Vector3.down * Gravity * Time.deltaTime;
+            characterController.Move(gravityVector);
         }
     }
- private void HandleFallingState()
+    void OnDrawGizmos()
     {
-        // Apply gravity during the Falling state
-        Debug.Log("Falling");
-
-        Animator.SetTrigger("Jump");
-          
-        if (!isGrounded)
-        {
-            // Adjust the jump force here
-            float jumpVelocity = Mathf.Sqrt(2 * jumpForce * Mathf.Abs(Physics.gravity.y));
-            characterController.Move(Vector3.up * jumpVelocity * Time.deltaTime);
-            Animator.SetBool("Ground", true);
-            Animator.applyRootMotion = true;
-        }
-        else
-        {
-            Animator.SetBool("Ground", false);
-            currentState = PlayerState.Idle;
-        }
-
+        // Draw a sphere to visualize the ground check
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + Vector3.down * sphereCastDistance, sphereRadius);
+    }
+   
+   
         
 
-    }
+    
     void Check()
 
     {
@@ -359,28 +318,10 @@ public LayerMask Glayer;
         Debug.Log("Running");
      
 
-     //   Debug.Log("Run");
+   
     }
 
    
-
-    private void HandleJumpingState()
-    {
-        // Handle player jumping
-        Animator.SetTrigger("Jump");
-        
-        if (isGrounded)
-            {
-        
-        
-            float jumpVelocity = Mathf.Sqrt(2 * jumpForce * Mathf.Abs(Physics.gravity.y));
-            characterController.Move(Vector3.up * jumpVelocity * Time.deltaTime);
-
-            }
-        currentState = PlayerState.Falling;
-        // Handle transitioning to other states
-       
-    }
 
     private void HandleShootingState()
     {
@@ -396,20 +337,5 @@ public LayerMask Glayer;
             currentState = PlayerState.Idle;
         }
     }
-
-  /*  public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-        }
-        else if (stream.IsReading)
-
-        {
-            smoothMove = (Vector3)stream.ReceiveNext();
-        }
-    */
-
-    
 
 }
