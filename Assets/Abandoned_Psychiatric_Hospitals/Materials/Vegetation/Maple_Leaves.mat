@@ -92,6 +92,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AlphaCutoff: 0.5
+    - _Alpha_Clipping: 0.699
     - _AmbientOcclusion: 0.3504248
     - _Ambient_Occlusion: 0.29
     - _Amplitude: 0.101
@@ -150,6 +152,7 @@ Material:
     - _Color: {r: 1, g: 0.95114124, b: 0.9009434, a: 1}
     - _Color_Tilling: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive: {r: 0, g: 0, b: 0, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SubSurfColor: {r: 0.2358491, g: 0.2018782, b: 0.1724368, a: 1}
     - _Tilling: {r: 1.35, g: 0.99, b: 0, a: 0}

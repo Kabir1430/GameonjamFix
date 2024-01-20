@@ -88,6 +88,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AlphaCutoff: 0.5
+    - _Alpha_Clipping: 0.595
     - _AmbientOcclusion: 1.13
     - _Ambient_Occlusion: 0
     - _Amplitude: 0.15
@@ -135,6 +137,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color_Tilling: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive: {r: 0, g: 0, b: 0, a: 0}
     - _SubSurfColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
     - _Tilling: {r: 0, g: 0, b: 0, a: 0}
     - _Tint: {r: 0.6768423, g: 0.735849, b: 0.68378425, a: 0}
