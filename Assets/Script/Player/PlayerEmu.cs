@@ -7,7 +7,7 @@ public class PlayerEmu : MonoBehaviour
     {
     // Start is called before the first frame update
     [Header("Movement")]
-    public float movementSpeed = 5.0f,Run=10f,horizontal,vertical;
+    public float movementSpeed ,Run,horizontal,vertical;
     public CharacterController characterController;
     //public FixedJoystick FixedJoystick;
 
@@ -32,7 +32,7 @@ public LayerMask Glayer;
     public RectTransform joystickPanel;
 
     public GameObject localPlayerPanel;
-
+        
     [Header("Raycast")]
     public float shootCooldown = 0.5f;
 
@@ -87,13 +87,14 @@ public LayerMask Glayer;
 
      
     }
-     
+
     private void Update()
     {
-        if(pv.IsMine)
-        {
-            OnEnablePlayer(); 
-           
+        //  if(pv.IsMine)
+        //   {
+
+        //       OnEnablePlayer(); 
+
         switch (currentState)
         {
             case PlayerState.Idle:
@@ -110,17 +111,22 @@ public LayerMask Glayer;
                 HandleRunningState();
 
                 break;
-                     
+
         }
+
         HandleMouseLook();
         Check();
-        }
+
+   }
+        //
+    /*
         else
         {
             DisableRemotePlayerComponents();
             smoothMovement();
         }
 
+    
     }
 
     /// <summary>
@@ -149,6 +155,13 @@ public LayerMask Glayer;
 
     /// ////////////////////////////////////////
     /// </summary>
+    /// 
+
+
+
+
+
+    */
     void ApplyGravity()
     {
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, GroundDistance);
@@ -287,18 +300,19 @@ public LayerMask Glayer;
         {
             currentState = PlayerState.Shooting;
         }
-        else if (Mathf.Abs(        Input.GetAxis("Horizontal")) > 0.12f || Mathf.Abs(  Input.GetAxis("Vertical")) > 0.12f)
+        else if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.12f || Mathf.Abs(  Input.GetAxis("Vertical")) > 0.12f)
         {
             currentState = PlayerState.Running;
         }
-        else if (Mathf.Abs(         Input.GetAxis("Horizontal")) > 0.1f || Mathf.Abs(   Input.GetAxis("Vertical"))> 0.1f)
+
+        else if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f || Mathf.Abs(   Input.GetAxis("Vertical"))> 0.1f)
         {
             currentState = PlayerState.Walking;
         }
        
-        if (horizontal != 0 || vertical != 0)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+             if (horizontal != 0 || vertical != 0)
             {
                 currentState = PlayerState.Running;
               }
@@ -334,15 +348,15 @@ public LayerMask Glayer;
         {
             currentState = PlayerState.Idle;
         }
-
-
-        else if (Mathf.Abs(horizontal = Input.GetAxis("Horizontal")) > 0.12f || Mathf.Abs(vertical = Input.GetAxis("Vertical")) > 0.12f)
+        else if(Input.GetKey(KeyCode.LeftShift))
         {
             currentState = PlayerState.Running;
         }
        
         UpdateAnimatorParameters(horizontal,vertical);
 
+
+         
         Debug.Log("Moving");
     }
     void HandleRunningState()
@@ -361,12 +375,12 @@ public LayerMask Glayer;
        
        
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+          /*  if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 currentState = PlayerState.Walking;
             }
         Debug.Log("Running");
-        
+        */
         
     }
 
