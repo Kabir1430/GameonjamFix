@@ -26,12 +26,12 @@ public class Gun : MonoBehaviour
     public Animator Anim;
 
 
-   /* [Header("Script")]
+    [Header("Script")]
 
-    public CameraShake CameraShake;
-    public float instensity, duration;
+    public EnemyAi Enemy;
+    public int Damage;
 
-    */
+    
 
     void Start()
     {
@@ -75,29 +75,29 @@ public class Gun : MonoBehaviour
     {
         Ray ray = new Ray(gunTip.position, gunTip.forward);
         RaycastHit hitInfo;
-    //    CameraShake.StartShake(instensity,duration);
-        // Visualize the ray in the scene for debugging
+   
+   
         Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
-      //  CameraShaker.Instance.ShakeOnce(0, 0, 0,0);
+ 
         Anim.SetBool("Shake", true);
-        Fire.Play();
+    
         if (Physics.Raycast(ray, out hitInfo, range, targetLayer))
         {
-            // The ray hit a valid target
+         
             Debug.Log("Hit: " + hitInfo.collider.name);
 
-            // Example: If the hit object has a health script, decrease its health
-            //  Health hitHealth = hitInfo.collider.GetComponent<Health>();
-          /* if (hitHealth != null)
-            {
-                hitHealth.TakeDamage(10); // Adjust the damage as needed
-            }
-          */
             // Example: If the hit object has a rigidbody, apply force
             Rigidbody hitRigidbody = hitInfo.collider.GetComponent<Rigidbody>();
             if (hitRigidbody != null)
             {
                 hitRigidbody.AddForceAtPosition(ray.direction * 10f, hitInfo.point);
+            }
+
+            if(hitInfo.collider.tag=="Enemy")
+            {
+                Enemy = hitInfo.collider.GetComponent<EnemyAi>();
+
+                Enemy.TakeDamage(Damage);
             }
 
             // You can add more actions based on the type of object hit
