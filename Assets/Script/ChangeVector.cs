@@ -9,10 +9,20 @@ public class ChangeVector : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-
-
+     if(other.gameObject.tag == "outside")
+     {
+      Vector3 newPosition = new Vector3(0f, 1f, 0f); // Change this to your desired position
+            Enemy.position = newPosition;
+            Debug.Log("enemy out");
+     }
+     if(other.gameObject.tag == "inside")
+     {
+      Vector3 newPosition = new Vector3(0f, -1f, 0f); // Change this to your desired position
+            Enemy.position = newPosition;
+            
+     }
     }
 
 
