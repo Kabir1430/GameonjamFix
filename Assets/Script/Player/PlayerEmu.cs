@@ -282,7 +282,7 @@ public class PlayerEmu : MonoBehaviour
     public void PlayerDamage(int PH)
     {
 
-        Health -= PH;
+        Health -= PH; 
 
     }
     void Check()
