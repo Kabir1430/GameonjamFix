@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Door
+  - FxTemporaire
+  - outside
+  - inside
   layers:
   - Default
   - TransparentFX
