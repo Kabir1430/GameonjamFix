@@ -103,7 +103,6 @@ public class Gun : MonoBehaviour
 
 
         Fire.Play();
-                Enemy = hitInfo.collider.GetComponent<EnemyAi>();
         StartCoroutine(EffectWait());
        // Enemy = hitInfo.collider.GetComponent<EnemyAi>();
         //De
@@ -121,6 +120,7 @@ public class Gun : MonoBehaviour
 
             if(hitInfo.collider.tag=="Enemy")  
             {
+                Enemy = hitInfo.collider.GetComponent<EnemyAi>();
                 
               //  Enemy = check.collider.GetComponent<EnemyAi>();
                 Enemy.TakeDamage(Damage);
@@ -155,7 +155,7 @@ public class Gun : MonoBehaviour
     
     IEnumerator EffectWait()
     {
-       yield return new WaitForSeconds(68f);
+       yield return new WaitForSeconds(.0068f);
 
         Efeect.SetActive(false);
     }
