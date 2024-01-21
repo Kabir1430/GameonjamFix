@@ -80,7 +80,7 @@ public class Gun : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
       //  CameraShaker.Instance.ShakeOnce(0, 0, 0,0);
         Anim.SetBool("Shake", true);
-        Fire.Play();
+    
         if (Physics.Raycast(ray, out hitInfo, range, targetLayer))
         {
             // The ray hit a valid target
