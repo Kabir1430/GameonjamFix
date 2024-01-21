@@ -36,6 +36,11 @@ public class EnemyAi : MonoBehaviour
     public PlayerEmu  Player;
 
     public int Playerdamage;
+
+    [Header("Reload")]
+
+    public float RT;
+
     private void Awake()
     {
      
@@ -74,6 +79,9 @@ public class EnemyAi : MonoBehaviour
 
     private void AttackPlayer()
     {
+
+
+
        agent.SetDestination(transform.position);
 
 
