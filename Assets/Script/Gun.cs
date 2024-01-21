@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +15,24 @@ public class Gun : MonoBehaviour
     private float currentCooldown = 0f;
     private int currentAmmo;
 
+  //  public CameraShake CameraShake;
 
     [Header("Audio")]
 
     public AudioSource Fire;
+
+    [Header("Animation")]
+
+    public Animator Anim;
+
+
+   /* [Header("Script")]
+
+    public CameraShake CameraShake;
+    public float instensity, duration;
+
+    */
+
     void Start()
     {
         currentAmmo = magazineSize;
@@ -35,10 +50,24 @@ public class Gun : MonoBehaviour
             currentCooldown = shootCooldown;
             currentAmmo--;
         }
+        
 
         if (Input.GetKey(KeyCode.R) && currentAmmo < magazineSize)
         {
             Reload();
+        }
+    
+    
+        if(Anim.GetCurrentAnimatorStateInfo(0).IsName("Shake"))
+        {
+            Anim.SetBool("Shake", false);
+
+            Debug.Log("Anim is over");
+        }
+        else if (Anim.GetCurrentAnimatorStateInfo(0).IsName("Reload"))
+       {
+            Anim.SetBool("Reload", false);
+
         }
     }
 
@@ -46,9 +75,11 @@ public class Gun : MonoBehaviour
     {
         Ray ray = new Ray(gunTip.position, gunTip.forward);
         RaycastHit hitInfo;
-
+    //    CameraShake.StartShake(instensity,duration);
         // Visualize the ray in the scene for debugging
         Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
+      //  CameraShaker.Instance.ShakeOnce(0, 0, 0,0);
+        Anim.SetBool("Shake", true);
         Fire.Play();
         if (Physics.Raycast(ray, out hitInfo, range, targetLayer))
         {
@@ -73,11 +104,14 @@ public class Gun : MonoBehaviour
         }
     }
 
+    
+
     void Reload()
     {
         // Perform reload logic here
         Debug.Log("Reloading...");
         currentAmmo = magazineSize;
+        Anim.SetBool("Reload", true);
     }
 
 
