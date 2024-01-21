@@ -7,7 +7,7 @@ public class UIMANAGER : MonoBehaviour
 {
     // Start is called bef
     // ore the first frame update
-   public void LoadLevel(string Level)
+   public void LoadLevel()
     {
         SceneManager.LoadScene(1);
     }
