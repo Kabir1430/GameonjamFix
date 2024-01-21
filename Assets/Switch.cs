@@ -25,7 +25,8 @@ public class Switch : MonoBehaviour
         yield return new WaitForSeconds(24);
 
 
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(2);
+        //SceneManager.LoadScene();
     }
 
 
