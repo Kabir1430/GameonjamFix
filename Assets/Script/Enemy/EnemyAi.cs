@@ -31,9 +31,11 @@ public class EnemyAi : MonoBehaviour
 
 
 
-    //[Header("Animation")]
+    [Header("PH")]
 
-   // public PlayerEmu player;
+    public PlayerEmu  Player;
+
+    public int Playerdamage;
     private void Awake()
     {
      
@@ -74,6 +76,8 @@ public class EnemyAi : MonoBehaviour
     {
        agent.SetDestination(transform.position);
 
+
+        Player.PlayerDamage(Playerdamage);
         transform.LookAt(player);
         EnemyAnim.SetBool("Attack", true);
         EnemyAnim.SetBool("walk", false);
