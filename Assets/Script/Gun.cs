@@ -30,6 +30,10 @@ public class Gun : MonoBehaviour
 
     public EnemyAi[] Enemy;
     public int Damage;
+     public Transform raycastOrigin;
+    public LayerMask hitLayer; 
+
+    public GameObject objectToInstantiate;
 
     
 

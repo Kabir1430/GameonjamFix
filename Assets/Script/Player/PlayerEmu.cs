@@ -1,6 +1,7 @@
 //using Photon.Pun;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerEmu : MonoBehaviour
@@ -11,6 +12,7 @@ public class PlayerEmu : MonoBehaviour
     public float horizontal;
 
     public float vertical;
+    public GameObject cutscene;
 
     public CharacterController characterController;
   
@@ -267,7 +269,7 @@ public class PlayerEmu : MonoBehaviour
     {
         if(other.gameObject.tag=="Finish")
         {
-            Debug.Log("CutScene");
+           cutscene.SetActive(true);
         }    
 
 
