@@ -37,6 +37,12 @@ public class EnemyAi : MonoBehaviour
 
     private void Update()
     {
+        if (health < 0)
+        {
+          //  EnemyAI.SetActive(false);
+            DestroyEnemy();
+          //  Debug.Log("Health 0");
+        }
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
@@ -45,8 +51,9 @@ public class EnemyAi : MonoBehaviour
 
         if (health < 0)
         {
+          //  EnemyAI.SetActive(false);
             DestroyEnemy();
-            Debug.Log("Health 0");
+          //  Debug.Log("Health 0");
         }
     }
 

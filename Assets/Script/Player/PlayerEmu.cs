@@ -35,9 +35,11 @@ public class PlayerEmu : MonoBehaviour
     public float Gravity = 9.8f;
     public float sphereRadius = 0.3f;
     public float sphereCastDistance = 0.2f;
-  
 
 
+    [Header("Player Health")]
+
+    public float Health;
 
 
     private enum PlayerState
