@@ -33,11 +33,14 @@ public class Gun : MonoBehaviour
     public int Damage;
     [SerializeField]public RaycastHit hitInfo,check;
 
+    public GameObject Efeect;
 
-[Header("Script")]
+    public ParticleSystem ParticleSystem;
 
-    public GameObject BrickEffect;
-    public string targetTag;
+    //[Header("Script")]
+
+    ///  public GameObject BrickEffect;
+    // public string targetTag;
 
     void Start()
     {
@@ -76,8 +79,13 @@ public class Gun : MonoBehaviour
             Anim.SetBool("Reload", false);
 
         }
-
-
+      /*  if (!ParticleSystem.isPlaying)
+        {
+            Debug.Log("PARTICLE IS OVER");
+            // Do something when the Particle System is finished.
+        Efeect.SetActive(true);
+        }
+      */
     }
 
     void Shoot()
@@ -87,8 +95,15 @@ public class Gun : MonoBehaviour
    
    
         Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
- 
+
+
+        Efeect.SetActive(true);
+
         Anim.SetBool("Shake", true);
+
+
+        Fire.Play();
+        StartCoroutine(EffectWait());
        // Enemy = hitInfo.collider.GetComponent<EnemyAi>();
         //De
         if (Physics.Raycast(ray, out hitInfo, range))
@@ -108,28 +123,42 @@ public class Gun : MonoBehaviour
                 Enemy = hitInfo.collider.GetComponent<EnemyAi>();
                 
               //  Enemy = check.collider.GetComponent<EnemyAi>();
+                Enemy.TakeDamage(Damage);
                 Debug.Log("Enemy");
 
-                Enemy.TakeDamage(Damage);
             }
-            else if(hitInfo.collider.tag=="Brick")
+        
+            //if (!ParticleSystem.isPlaying)
+           
+            //{
+             //   Debug.Log("PARTICLE IS OVER");
+                // Do something when the Particle System is finished.
+//            }
+            //    else if(hitInfo.collider.tag=="Brick")
+            //   {
+            // Instantiate(BrickEffect, hitInfo.point, Quaternion.identity);
+
+            //     Debug.Log("Brick");
+            // }
+            //   else if (hitInfo.collider.CompareTag(targetTag))
             {
-                Instantiate(BrickEffect, hitInfo.point, Quaternion.identity);
 
-                Debug.Log("Brick");
+                //      Debug.Log("Brick");// Instantiate the objectToInstantiate at the collision point
+                //  Instantiate(BrickEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                //    }
+
+                // You can add more actions based on the type of object hit
             }
-            else if (hitInfo.collider.CompareTag(targetTag))
-            {
-
-                Debug.Log("Brick");// Instantiate the objectToInstantiate at the collision point
-                Instantiate(BrickEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             }
-
-            // You can add more actions based on the type of object hit
-        }
     }
 
     
+    IEnumerator EffectWait()
+    {
+       yield return new WaitForSeconds(.008f);
+
+        Efeect.SetActive(false);
+    }
       
     void Reload()
     {
