@@ -39,7 +39,7 @@ public class PlayerEmu : MonoBehaviour
 
     [Header("Player Health")]
 
-    public float Health;
+    public int Health;
 
 
     private enum PlayerState
@@ -74,7 +74,8 @@ public class PlayerEmu : MonoBehaviour
     
 
         ApplyGravity();
-       
+
+        Check();
        
         HandleMouseLook();
 
@@ -277,6 +278,19 @@ public class PlayerEmu : MonoBehaviour
     }
 
 
+    public void PlayerDamage(int PH)
+    {
+
+        Health -= PH;
+
+    }
+    void Check()
+    {
+        if(Health<0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 
 }
