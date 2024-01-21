@@ -1,6 +1,7 @@
 //using Photon.Pun;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayerEmu : MonoBehaviour
@@ -290,7 +291,14 @@ public class PlayerEmu : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+    } 
 
+
+    public void Vertical(Slider y)
+    {
+ 
+        // Update the text to display the current value of the slider
+        mouseSensitivity = y.value;// Displaying value with 2 decimal places
+    }
 
 }
