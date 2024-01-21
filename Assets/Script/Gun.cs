@@ -155,7 +155,7 @@ public class Gun : MonoBehaviour
     
     IEnumerator EffectWait()
     {
-       yield return new WaitForSeconds(.008f);
+       yield return new WaitForSeconds(68f);
 
         Efeect.SetActive(false);
     }
