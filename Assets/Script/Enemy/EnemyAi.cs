@@ -37,13 +37,24 @@ public class EnemyAi : MonoBehaviour
 
     private void Update()
     {
+        if (health < 0)
+        {
+          //  EnemyAI.SetActive(false);
+            DestroyEnemy();
+          //  Debug.Log("Health 0");
+        }
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        if (health < 0)
+        {
+          //  EnemyAI.SetActive(false);
+            DestroyEnemy();
+          //  Debug.Log("Health 0");
+        }
     }
 
     private void ChasePlayer()
@@ -84,10 +95,10 @@ public class EnemyAi : MonoBehaviour
       //  if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
 
-    private void DestroyEnemy()
+     void DestroyEnemy()
     {
         Destroy(EnemyAI);
-        EnemyAI.SetActive(false);
+      //  EnemyAI.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()
