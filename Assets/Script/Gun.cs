@@ -29,15 +29,15 @@ public class Gun : MonoBehaviour
 
     [Header("Script")]
 
-    public EnemyAi[] Enemy;
+    public EnemyAi Enemy;
     public int Damage;
+    [SerializeField]public RaycastHit hitInfo,check;
 
 
-
-    [Header("Script")]
+[Header("Script")]
 
     public GameObject BrickEffect;
-
+    public string targetTag;
 
     void Start()
     {
@@ -46,6 +46,7 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
+     //   CheckShoot();
         // Update the cooldown timer
         currentCooldown -= Time.deltaTime;
 
@@ -75,22 +76,25 @@ public class Gun : MonoBehaviour
             Anim.SetBool("Reload", false);
 
         }
+
+
     }
 
     void Shoot()
     {
         Ray ray = new Ray(gunTip.position, gunTip.forward);
-        RaycastHit hitInfo;
+ 
    
    
         Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
  
         Anim.SetBool("Shake", true);
-    
-        if (Physics.Raycast(ray, out hitInfo, range, targetLayer))
+       // Enemy = hitInfo.collider.GetComponent<EnemyAi>();
+        //De
+        if (Physics.Raycast(ray, out hitInfo, range))
         {
          
-            Debug.Log("Hit: " + hitInfo.collider.name);
+           // Debug.Log("Hit: " + hitInfo.collider.name);
 
             // Example: If the hit object has a rigidbody, apply force
             Rigidbody hitRigidbody = hitInfo.collider.GetComponent<Rigidbody>();
@@ -99,17 +103,26 @@ public class Gun : MonoBehaviour
                 hitRigidbody.AddForceAtPosition(ray.direction * 10f, hitInfo.point);
             }
 
-            if(hitInfo.collider.tag=="Enemy")
+            if(hitInfo.collider.tag=="Enemy")  
             {
+                Enemy = hitInfo.collider.GetComponent<EnemyAi>();
+                
+              //  Enemy = check.collider.GetComponent<EnemyAi>();
+                Debug.Log("Enemy");
 
-
-                Enemy[0].TakeDamage(Damage);
+                Enemy.TakeDamage(Damage);
             }
-            else if(hitInfo.collider.tag=="brick")
+            else if(hitInfo.collider.tag=="Brick")
             {
+                Instantiate(BrickEffect, hitInfo.point, Quaternion.identity);
+
+                Debug.Log("Brick");
+            }
+            else if (hitInfo.collider.CompareTag(targetTag))
+            {
+
+                Debug.Log("Brick");// Instantiate the objectToInstantiate at the collision point
                 Instantiate(BrickEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
-
-
             }
 
             // You can add more actions based on the type of object hit
@@ -117,13 +130,36 @@ public class Gun : MonoBehaviour
     }
 
     
-
+      
     void Reload()
     {
         // Perform reload logic here
         Debug.Log("Reloading...");
         currentAmmo = magazineSize;
         Anim.SetBool("Reload", true);
+    }
+
+
+
+    void CheckShoot()
+    {
+        Ray ray = new Ray(gunTip.position, gunTip.forward);
+
+        Debug.DrawRay(ray.origin, ray.direction * range, Color.blue, 0.1f);
+             
+      
+        if (Physics.Raycast(ray, out check,range))
+        {
+
+            if (check.collider.tag == "Enemy")
+            {
+                Debug.Log("Enemy Get");
+
+               // Enemy = check.collider.GetComponent<EnemyAi>();
+
+               // Enemy.TakeDamage(Damage);
+            }
+        }
     }
 
 

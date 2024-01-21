@@ -43,7 +43,10 @@ public class EnemyAi : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        if (health < 0)
+        {
+            DestroyEnemy();
+        }
     }
 
     private void ChasePlayer()
@@ -84,7 +87,7 @@ public class EnemyAi : MonoBehaviour
       //  if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
 
-    private void DestroyEnemy()
+     void DestroyEnemy()
     {
         Destroy(EnemyAI);
         EnemyAI.SetActive(false);
