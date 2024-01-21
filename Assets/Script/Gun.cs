@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -31,7 +32,12 @@ public class Gun : MonoBehaviour
     public EnemyAi[] Enemy;
     public int Damage;
 
-    
+
+
+    [Header("Script")]
+
+    public GameObject BrickEffect;
+
 
     void Start()
     {
@@ -98,6 +104,12 @@ public class Gun : MonoBehaviour
 
 
                 Enemy[0].TakeDamage(Damage);
+            }
+            else if(hitInfo.collider.tag=="brick")
+            {
+                Instantiate(BrickEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+
+
             }
 
             // You can add more actions based on the type of object hit
