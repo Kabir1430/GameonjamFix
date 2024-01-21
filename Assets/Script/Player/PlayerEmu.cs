@@ -261,4 +261,20 @@ public class PlayerEmu : MonoBehaviour
         }
     }
 
+
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag=="Finish")
+        {
+            Debug.Log("CutScene");
+        }    
+
+
+
+    }
+
+
+
+
 }
