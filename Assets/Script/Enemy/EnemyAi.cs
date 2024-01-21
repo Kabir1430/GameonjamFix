@@ -16,7 +16,7 @@ public class EnemyAi : MonoBehaviour
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-    public GameObject projectile;
+    //public GameObject projectile;
 
     //States
     public float sightRange, attackRange;
@@ -28,6 +28,12 @@ public class EnemyAi : MonoBehaviour
     [Header("Animation")]
 
     public Animator EnemyAnim;
+
+
+
+    //[Header("Animation")]
+
+   // public PlayerEmu player;
     private void Awake()
     {
      
@@ -74,8 +80,8 @@ public class EnemyAi : MonoBehaviour
         if (!alreadyAttacked)
         {
             //Attack code
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward *32f, ForceMode.Impulse);
+          //  Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+        //    rb.AddForce(transform.forward *32f, ForceMode.Impulse);
 
 
             alreadyAttacked = true;

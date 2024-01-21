@@ -67,7 +67,7 @@ public class Gun : MonoBehaviour
             Reload();
         }
     
-    
+     
         if(Anim.GetCurrentAnimatorStateInfo(0).IsName("Shake"))
         {
             Anim.SetBool("Shake", false);
