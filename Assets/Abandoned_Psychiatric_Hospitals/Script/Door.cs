@@ -10,6 +10,11 @@ public class Door : MonoBehaviour
     private Vector3 defaulRot;
     private Vector3 openRot;
     public Text txt;//text 
+
+    public CameraShake Shake;
+
+    public bool DoorisOpen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,15 +27,20 @@ public class Door : MonoBehaviour
     {
         if (open)//открыть
         {
-            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, openRot, Time.deltaTime * smooth);
+
+         //   Open();
+         //   transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, openRot, Time.deltaTime * smooth);
         }
         else//закрыть
         {
-            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, defaulRot, Time.deltaTime * smooth);
+
+       //     Close();
+         //   transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, defaulRot, Time.deltaTime * smooth);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+
+        if (Input.GetKeyDown(KeyCode.E) )
         {
-            open = !open;
+        //    open = !open;
         }
         if (trig)   
         {
@@ -44,9 +54,20 @@ public class Door : MonoBehaviour
             }
         }
     }
+
+    public void Open()
+    {
+        transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, openRot, Time.deltaTime * smooth);
+        DoorisOpen = true;
+    }
+    public void Close()
+    {  DoorisOpen = false;
+        transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, defaulRot, Time.deltaTime * smooth);
+    }
+    /*
     private void OnTriggerEnter(Collider coll)//вход и выход в\из  триггера 
     {
-        if (coll.tag == "Player")
+        if (coll.tag == "Player" && Shake.isCollide)
         {
             if (!open)
             {
@@ -67,4 +88,5 @@ public class Door : MonoBehaviour
             trig = false;
         }
     }
+    */
 }
