@@ -42,11 +42,14 @@ public class EnemyAi : MonoBehaviour
 
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
+
+        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
 
     private void ChasePlayer()
     {
         EnemyAnim.SetBool("Attack", false);
+        EnemyAnim.SetBool("walk", true);
         agent.SetDestination(player.position);
     }
 
@@ -56,6 +59,7 @@ public class EnemyAi : MonoBehaviour
 
         transform.LookAt(player);
         EnemyAnim.SetBool("Attack", true);
+        EnemyAnim.SetBool("walk", false);
         if (!alreadyAttacked)
         {
             //Attack code
@@ -77,7 +81,7 @@ public class EnemyAi : MonoBehaviour
     public  void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+      //  if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
 
     private void DestroyEnemy()
