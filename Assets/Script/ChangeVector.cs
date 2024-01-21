@@ -6,6 +6,7 @@ public class ChangeVector : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform Enemy;
+    public float outsideY, insideY;
 
 
 
@@ -13,13 +14,13 @@ public class ChangeVector : MonoBehaviour
     {
      if(other.gameObject.tag == "outside")
      {
-      Vector3 newPosition = new Vector3(transform.position.x, 1f, transform.position.z); // Change this to your desired position
+      Vector3 newPosition = new Vector3(transform.position.x,outsideY, transform.position.z); // Change this to your desired position
             Enemy.position = newPosition;
             Debug.Log("enemy out");
      }
      if(other.gameObject.tag == "inside")
      {
-      Vector3 newPosition = new Vector3(transform.position.x, -1f, transform.position.z); // Change this to your desired position
+      Vector3 newPosition = new Vector3(transform.position.x, insideY, transform.position.z); // Change this to your desired position
             Enemy.position = newPosition;
             Debug.Log("enemy in");
             
