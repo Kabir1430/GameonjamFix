@@ -46,6 +46,7 @@ public class EnemyAi : MonoBehaviour
         if (health < 0)
         {
             DestroyEnemy();
+            Debug.Log("Health 0");
         }
     }
 
@@ -90,7 +91,7 @@ public class EnemyAi : MonoBehaviour
      void DestroyEnemy()
     {
         Destroy(EnemyAI);
-        EnemyAI.SetActive(false);
+      //  EnemyAI.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()
