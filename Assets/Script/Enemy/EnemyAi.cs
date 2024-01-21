@@ -24,9 +24,14 @@ public class EnemyAi : MonoBehaviour
 
     public GameObject EnemyAI;
 
+
+    [Header("Animation")]
+
+    public Animator EnemyAnim;
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+     
+        //player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -41,6 +46,7 @@ public class EnemyAi : MonoBehaviour
 
     private void ChasePlayer()
     {
+        EnemyAnim.SetBool("Attack", false);
         agent.SetDestination(player.position);
     }
 
@@ -49,7 +55,7 @@ public class EnemyAi : MonoBehaviour
        agent.SetDestination(transform.position);
 
         transform.LookAt(player);
-
+        EnemyAnim.SetBool("Attack", true);
         if (!alreadyAttacked)
         {
             //Attack code
