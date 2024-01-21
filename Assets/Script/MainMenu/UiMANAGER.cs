@@ -7,6 +7,7 @@ public class UIMANAGER : MonoBehaviour
 {
     // Start is called bef
     // ore the first frame update
+
    public void LoadLevel()
     {
         SceneManager.LoadScene(1);
@@ -15,11 +16,5 @@ public class UIMANAGER : MonoBehaviour
     {
       Application.Quit();
     }
-    public void update()
-    {
-      if(Input.GetKeyDown(KeyCode.P))
-      {
-        Time.timeScale = 0;
-      }
-    }
+
 }
