@@ -28,7 +28,7 @@ public class Gun : MonoBehaviour
 
     [Header("Script")]
 
-    public EnemyAi Enemy;
+    public EnemyAi[] Enemy;
     public int Damage;
 
     
@@ -95,9 +95,9 @@ public class Gun : MonoBehaviour
 
             if(hitInfo.collider.tag=="Enemy")
             {
-                Enemy = hitInfo.collider.GetComponent<EnemyAi>();
 
-                Enemy.TakeDamage(Damage);
+
+                Enemy[0].TakeDamage(Damage);
             }
 
             // You can add more actions based on the type of object hit
