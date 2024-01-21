@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Office Room Furniture/Demo/Demo Scene.unity
     guid: 4e4aa0a37831112448093cef958c7779
+  - enabled: 1
+    path: Assets/Abandoned_Psychiatric_Hospitals/Scenes/Demo.unity
+    guid: 1bafc89e0c2524a4996d0dd284a28aee
   m_configObjects: {}
