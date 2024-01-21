@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+using BigRookGames.Weapons;
 public class EnemyAi : MonoBehaviour
 {
     public NavMeshAgent agent;
@@ -37,9 +38,7 @@ public class EnemyAi : MonoBehaviour
 
     public int Playerdamage;
 
-    [Header("Reload")]
-
-    public float RT;
+    public GunfireController Fire;
 
     private void Awake()
     {
@@ -81,7 +80,7 @@ public class EnemyAi : MonoBehaviour
     {
 
 
-
+        Fire.FireWeapon();
        agent.SetDestination(transform.position);
 
 
