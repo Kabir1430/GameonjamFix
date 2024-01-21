@@ -15,4 +15,11 @@ public class UIMANAGER : MonoBehaviour
     {
       Application.Quit();
     }
+    public void update()
+    {
+      if(Input.GetKeyDown(KeyCode.P))
+      {
+        Time.timeScale = 0;
+      }
+    }
 }
