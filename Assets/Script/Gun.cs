@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -28,10 +29,18 @@ public class Gun : MonoBehaviour
 
     [Header("Script")]
 
-    public EnemyAi[] Enemy;
+    public EnemyAi Enemy;
     public int Damage;
+    [SerializeField]public RaycastHit hitInfo,check;
 
-    
+    public GameObject Efeect;
+
+    public ParticleSystem ParticleSystem;
+
+    //[Header("Script")]
+
+    ///  public GameObject BrickEffect;
+    // public string targetTag;
 
     void Start()
     {
@@ -40,6 +49,7 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
+     //   CheckShoot();
         // Update the cooldown timer
         currentCooldown -= Time.deltaTime;
 
@@ -69,22 +79,37 @@ public class Gun : MonoBehaviour
             Anim.SetBool("Reload", false);
 
         }
+      /*  if (!ParticleSystem.isPlaying)
+        {
+            Debug.Log("PARTICLE IS OVER");
+            // Do something when the Particle System is finished.
+        Efeect.SetActive(true);
+        }
+      */
     }
 
     void Shoot()
     {
         Ray ray = new Ray(gunTip.position, gunTip.forward);
-        RaycastHit hitInfo;
+ 
    
    
         Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
- 
+
+
+        Efeect.SetActive(true);
+
         Anim.SetBool("Shake", true);
-    
-        if (Physics.Raycast(ray, out hitInfo, range, targetLayer))
+
+
+        Fire.Play();
+        StartCoroutine(EffectWait());
+       // Enemy = hitInfo.collider.GetComponent<EnemyAi>();
+        //De
+        if (Physics.Raycast(ray, out hitInfo, range))
         {
          
-            Debug.Log("Hit: " + hitInfo.collider.name);
+           // Debug.Log("Hit: " + hitInfo.collider.name);
 
             // Example: If the hit object has a rigidbody, apply force
             Rigidbody hitRigidbody = hitInfo.collider.GetComponent<Rigidbody>();
@@ -93,25 +118,77 @@ public class Gun : MonoBehaviour
                 hitRigidbody.AddForceAtPosition(ray.direction * 10f, hitInfo.point);
             }
 
-            if(hitInfo.collider.tag=="Enemy")
+            if(hitInfo.collider.tag=="Enemy")  
+            {
+                Enemy = hitInfo.collider.GetComponent<EnemyAi>();
+                
+              //  Enemy = check.collider.GetComponent<EnemyAi>();
+                Enemy.TakeDamage(Damage);
+                Debug.Log("Enemy");
+
+            }
+        
+            //if (!ParticleSystem.isPlaying)
+           
+            //{
+             //   Debug.Log("PARTICLE IS OVER");
+                // Do something when the Particle System is finished.
+//            }
+            //    else if(hitInfo.collider.tag=="Brick")
+            //   {
+            // Instantiate(BrickEffect, hitInfo.point, Quaternion.identity);
+
+            //     Debug.Log("Brick");
+            // }
+            //   else if (hitInfo.collider.CompareTag(targetTag))
             {
 
+                //      Debug.Log("Brick");// Instantiate the objectToInstantiate at the collision point
+                //  Instantiate(BrickEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                //    }
 
-                Enemy[0].TakeDamage(Damage);
+                // You can add more actions based on the type of object hit
             }
-
-            // You can add more actions based on the type of object hit
-        }
+            }
     }
 
     
+    IEnumerator EffectWait()
+    {
+       yield return new WaitForSeconds(.008f);
 
+        Efeect.SetActive(false);
+    }
+      
     void Reload()
     {
         // Perform reload logic here
         Debug.Log("Reloading...");
         currentAmmo = magazineSize;
         Anim.SetBool("Reload", true);
+    }
+
+
+
+    void CheckShoot()
+    {
+        Ray ray = new Ray(gunTip.position, gunTip.forward);
+
+        Debug.DrawRay(ray.origin, ray.direction * range, Color.blue, 0.1f);
+             
+      
+        if (Physics.Raycast(ray, out check,range))
+        {
+
+            if (check.collider.tag == "Enemy")
+            {
+                Debug.Log("Enemy Get");
+
+               // Enemy = check.collider.GetComponent<EnemyAi>();
+
+               // Enemy.TakeDamage(Damage);
+            }
+        }
     }
 
 
