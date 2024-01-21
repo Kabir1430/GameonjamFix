@@ -76,6 +76,7 @@ public class EnemyAi : MonoBehaviour
 
     private void DestroyEnemy()
     {
+        Destroy(EnemyAI);
         EnemyAI.SetActive(false);
     }
 
